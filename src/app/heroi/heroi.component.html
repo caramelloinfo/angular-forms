@@ -1,2 +1,21 @@
-<h4 [class.selecionado]="estahSelecionado" (click)="selecionado()">{{heroi.nome}} [{{heroi.id}}]</h4>
-<p>{{heroi.pessoa}}</p>
+<br> 
+<br>
+<div class="jumbotron"> <!-- Q3 e Q4 --> <!-- criou uma espécie de caixa-->
+    <div class="row"> 
+            <div class="col">
+                    <div class="row"> 
+<div class="card" style="width: 20rem;">
+    <img class="card-img-top"[src]="heroi.urlFoto" alt="Card image cap" WIDTH="200" HEIGHT="200">
+    <div class="card-body">
+        <h4 [class.selecionado]="estahSelecionado" (click)="selecionado()">{{heroi.nome}} [{{heroi.id}}]</h4>
+        <p>{{heroi.pessoa}}</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
