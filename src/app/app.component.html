@@ -23,5 +23,16 @@
             <input type="text" class="form-control" id="pessoa" name="pessoa" [(ngModel)]="novo.pessoa" required>
         </div>
         <button type="submit" class="btn btn-primary" [disabled]="!formCadastro.valid">Salvar</button>
+        
     </form>
+
+    <br>
+    <h2>Excluir heroi</h2>
+    <form #formApagar="ngForm" (ngSubmit)="delItem(selecionado.id)">
+        
+        <button type="submit" class="btn btn-primary" [disabled]="!formApagar.valid">Apagar selecionado</button>
+    </form>         
+    
+       
+   
 </div>
