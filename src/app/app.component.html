@@ -1,38 +1,16 @@
 <div class="container">
     <h1>Gerenciador de Heróis (Vingadores)</h1>
-    <!--<p>Os Vingadores (Avengers no original em inglês) são um grupo de super-heróis de história em quadrinhos publicados nos Estados Unidos pela editora Marvel Comics. O grupo também aparece em adaptações da Marvel para cinema, desenho animado e videogames. (Wikipedia)</p>
-    <p>Alguns membros da formação atual (clique para ver detalhes):</p>
-    <div>
-        <app-heroi *ngFor="let vingador of vingadores" [heroi]="vingador" [estahSelecionado]="selecionado && vingador.id == selecionado.id" (onSelecionado)="heroiSelecionado($event)"></app-heroi>
-    </div>
-    <div *ngIf="selecionado">
-        {{ selecionado | json }}
-    </div>-->
     <div class="row">
         <div class="col">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Nome</th>
-                        <th>Pessoa</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let vingador of vingadores">
-                        <td>{{vingador.id}}</td>
-                        <td>{{vingador.nome}}</td>
-                        <td>{{vingador.pessoa}}</td>
-                        <td>
-                            <button class="btn btn-sm btn-danger" (click)="excluir(vingador.id)">Excluir</button>
-                            <button class="btn btn-sm btn-primary" (click)="editar(vingador.id)">Editar</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div>
+                <app-lista-de-herois [lista]="vingadores" 
+                (onExcluir)="excluir($event)"
+                (onEditar)="editar($event)">
+
+                </app-lista-de-herois>
+            </div>
         </div>
         <div class="col">
-            <br>
             <h2>Cadastrar herói</h2>
             <form #formCadastro="ngForm" (ngSubmit)="cadastrar()">
                 <div class="form-group">

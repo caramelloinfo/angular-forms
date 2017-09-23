@@ -1,0 +1,27 @@
+<h2>
+  lista-de-herois works!
+</h2>
+  <div class="row">
+      <div class="col">
+          <table class="table">
+              <thead>
+                  <tr>
+                      <th>#</th>
+                      <th>Nome</th>
+                      <th>Pessoa</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let vingador of lista">
+                      <td>{{vingador.id}}</td>
+                      <td>{{vingador.nome}}</td>
+                      <td>{{vingador.pessoa}}</td>
+                      <td>
+                          <button class="btn btn-sm btn-danger" (click)="excluir(vingador)">Excluir</button>
+                          <button class="btn btn-sm btn-primary" (click)="editar(vingador)">Editar</button>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>

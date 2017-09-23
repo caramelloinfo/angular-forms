@@ -58,24 +58,19 @@ export class AppComponent implements OnInit {
         
     }
 
-    excluir(id: number): void{
-        //console.log('excluindo...',id)
-        let indice = this.encontrar(id);
-        if (indice != -1){
-            this.vingadores.splice(indice, 1);
-            this.novo = new Vingador(0, '', '');;
+    excluir(heroi: Vingador): void{
+        this.vingadores.splice(this.vingadores.indexOf(heroi), 1);
+        this.novo = new Vingador(0, '', '');;
 
-            }
-        }
+            
+    }
         
     
-    editar(id: number): void{
-        const indice = this.encontrar(id);
-            if (indice != -1){
-                this.novo = this.vingadores[indice];
-                this.editando = true;
-            }
-
+    editar(heroi: Vingador): void{
+        this.novo = heroi;
+        this.editando = true;
     }
+
+    
    
 }
