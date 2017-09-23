@@ -12,6 +12,8 @@ export class AppComponent implements OnInit {
     vingadores: Array<Vingador>;
     selecionado: Vingador;
     novo: Vingador = new Vingador(0, '', '');
+    ultimo_id = 5;
+    editando = false;
     
     constructor() {
         this.title = 'Vingadores';
@@ -21,7 +23,6 @@ export class AppComponent implements OnInit {
             new Vingador(3, 'Ms. Marvel', 'Carol Danvers'),
             new Vingador(4, 'Deadpool', 'Wade Wilson'),
             new Vingador(5, 'Gavião Arqueiro', 'Clint Barton'),
-            new Vingador(6, 'teste2', 'pessoa2')
         ];
     }
 
@@ -33,28 +34,48 @@ export class AppComponent implements OnInit {
     }
 
     cadastrar(): void {
-        const novoId: number = this.vingadores.length + 1;
-        this.vingadores.push(new Vingador(novoId, this.novo.nome, this.novo.pessoa));
-        this.novo = new Vingador(0, '', '');
+        if(!this.editando){
+            const novoId: number = ++this.ultimo_id;
+            this.vingadores.push(new Vingador(novoId, this.novo.nome, this.novo.pessoa));
+            this.novo = new Vingador(0, '', '');
+        }
+        else{
+            this.novo = new Vingador(0, '', '');
+            this.editando = false;
+        }
+        
+    }
+    encontrar(id: number): number{
+        let indice = -1;
+        for(let i=0; i <this.vingadores.length; i++){
+            if(this.vingadores[i].id == id){
+                indice = i;
+                break;
+
+            }
+        }
+        return indice;
         
     }
 
-    delItem(item): void{
-        delete this.vingadores[item-1];
-    }
+    excluir(id: number): void{
+        //console.log('excluindo...',id)
+        let indice = this.encontrar(id);
+        if (indice != -1){
+            this.vingadores.splice(indice, 1);
+            this.novo = new Vingador(0, '', '');;
+
+            }
+        }
+        
     
-    heroiSelecApagar(vingador: Vingador, item): void {
-        var apagado = vingador.id;
-        const index = this.vingadores.indexOf(vingador);
-        const elementoRemovido = this.vingadores.splice(index);
-        
+    editar(id: number): void{
+        const indice = this.encontrar(id);
+            if (indice != -1){
+                this.novo = this.vingadores[indice];
+                this.editando = true;
+            }
+
     }
-    del(id){
-        
-        const index = this.vingadores.indexOf(id);
-        const elementoRemovido = this.vingadores.splice(index);
-   // aqui podes fazer algo com o item removido
-   // a array modifica-se a si própria com o splice
-}
    
 }
