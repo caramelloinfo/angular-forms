@@ -17,6 +17,9 @@ export class ListaDeHeroisComponent implements OnInit {
   @Output()
   onEditar = new EventEmitter<Vingador>();
 
+  @Output()
+  onCadastrar = new EventEmitter<Vingador>();
+
   constructor() { }
 
   ngOnInit() {
@@ -27,7 +30,11 @@ export class ListaDeHeroisComponent implements OnInit {
   }
 
   editar(vingador: Vingador): void{
-    this.onExcluir.emit(vingador);
+    this.onEditar.emit(vingador);
+  }
+
+  cadastrar(vingador: Vingador): void{
+    this.onCadastrar.emit(vingador);
   }
 
 }

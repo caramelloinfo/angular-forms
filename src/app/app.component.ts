@@ -33,18 +33,7 @@ export class AppComponent implements OnInit {
         this.selecionado = vingador;
     }
 
-    cadastrar(): void {
-        if(!this.editando){
-            const novoId: number = ++this.ultimo_id;
-            this.vingadores.push(new Vingador(novoId, this.novo.nome, this.novo.pessoa));
-            this.novo = new Vingador(0, '', '');
-        }
-        else{
-            this.novo = new Vingador(0, '', '');
-            this.editando = false;
-        }
-        
-    }
+    
     encontrar(id: number): number{
         let indice = -1;
         for(let i=0; i <this.vingadores.length; i++){
@@ -58,13 +47,24 @@ export class AppComponent implements OnInit {
         
     }
 
+    cadastrar(vingador: Vingador): void {
+      if(!this.editando){
+          const novoId: number = ++this.ultimo_id;
+          this.vingadores.push(new Vingador(novoId, vingador.nome, vingador.pessoa));
+          this.novo = new Vingador(0, '', '');
+      }
+      else{
+          this.novo = new Vingador(0, '', '');
+          this.editando = false;
+      }
+      
+    }
+
     excluir(heroi: Vingador): void{
         this.vingadores.splice(this.vingadores.indexOf(heroi), 1);
         this.novo = new Vingador(0, '', '');;
-
-            
-    }
-        
+           
+    }        
     
     editar(heroi: Vingador): void{
         this.novo = heroi;
