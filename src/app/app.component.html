@@ -1,38 +1,151 @@
-<div class="container">
-    <h1>{{title}}</h1>
-    <p>Os Vingadores (Avengers no original em inglês) são um grupo de super-heróis de história em quadrinhos publicados nos Estados Unidos pela editora Marvel Comics. O grupo também aparece em adaptações da Marvel para cinema, desenho animado e videogames. (Wikipedia)</p>
-    <p>Alguns membros da formação atual (clique para ver detalhes):</p>
-    <div>
-        <app-heroi *ngFor="let vingador of vingadores" [heroi]="vingador" [estahSelecionado]="selecionado && vingador.id == selecionado.id" (onSelecionado)="heroiSelecionado($event)"></app-heroi>
+<h1>Gerenciar Turmas</h1>
+<br/>
+
+<div class="row">
+    <div class="col">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Número</th>
+                    <th>Nome</th>
+                    <th>Dia da semana</th>
+                    <th>Turno</th>
+                    <th>Alunos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let turma of turmas">
+                    <td>{{turma.numero}}</td>
+                    <td>{{turma.nome}}</td>
+                    <td>{{turma.diaSemana}}</td>
+                    <td>{{turma.turno}}</td>
+                    <td>
+                        <tr *ngFor="let aluno of alunos">{{aluno.nome}}</tr>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-primary" (click)="editarTurma(turma)"><i class="fa fa-pencil"></i></button>
+                        <button class="btn btn-sm btn-danger" (click)="excluirTurma(turma.nome)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+    <div class="col">
+            <h2>Cadastrar</h2>
+            <form #formCadastroTurma="ngForm" (ngSubmit)="cadastrarTurma()">
+                <div class="form-group">
+                    <label for="numero">Número:</label>
+                    <input type="number" class="form-control" id="numero" name="numero" [(ngModel)]="nova.numero" required>
+                </div>
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="nova.nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="diaSemana">Dia da semana:</label>
+                    <input type="text" class="form-control" id="diaSemana" name="diaSemana" [(ngModel)]="nova.diaSemana" required>
+                </div>
+                <div class="form-group">
+                    <label for="turno">Turno:</label>
+                    <input type="text" class="form-control" id="turno" name="turno" [(ngModel)]="nova.turno" required>
+                </div>
 
-    <div *ngIf="selecionado">
-        {{ selecionado | json }}
-    </div>
+                <label>Alunos:</label>
+                <ul class="list-group" *ngFor="let aluno of alunos">
+                    <li class="list-group-item">{{aluno.nome}}</li>
+                </ul>
 
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Alunos
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngFor="let aluno of alunos"> 
+                            <a class="dropdown-item" href="#" >{{aluno.nome}}</a>
+                            
+                        </div>
+                    </div>
 
-    <br>
-    <h2>Cadastrar herói</h2>
-    <form #formCadastro="ngForm" (ngSubmit)="cadastrar()">
-        <div class="form-group">
-            <label for="nome">Nome:</label>
-            <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="novo.nome" required>
-        </div>
-        <div class="form-group">
-            <label for="pessoa">Pessoa:</label>
-            <input type="text" class="form-control" id="pessoa" name="pessoa" [(ngModel)]="novo.pessoa" required>
-        </div>
-        <button type="submit" class="btn btn-primary" [disabled]="!formCadastro.valid">Salvar</button>
-        
-    </form>
-
-    <br>
-    <h2>Excluir heroi</h2>
-    <form #formApagar="ngForm" (ngSubmit)="delItem(selecionado.id)">
-        
-        <button type="submit" class="btn btn-primary" [disabled]="!formApagar.valid">Apagar selecionado</button>
-    </form>         
-    
-       
-   
+                    </td>
+                
+                <button type="submit" class="btn btn-primary" [disabled]="!formCadastroTurma.valid" (click)="cadastrarTurma()">Salvar</button>
+                <button class="btn btn-default" [disabled]="!formCadastroTurma.valid" (click)="limpar(turma)">Limpar</button>
+            
+            
+            
+            
+            </form>
+            </div>
 </div>
+
+<div class="row">
+    <div class="col">
+        <h2>Lista de Alunos</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Aluno</th>
+                    <th>1º Bim</th>
+                    <th>2º Bim</th>
+                    <th>3º Bim</th>
+                    <th>4º Bim</th>
+                    <th>Frequência</th>
+                    <th>Media</th>
+                    <th>Situação</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let aluno of alunos">
+                    <td>{{aluno.nome}}</td>
+                    <td>{{aluno.bim1}}</td>
+                    <td>{{aluno.bim2}}</td>
+                    <td>{{aluno.bim3}}</td>
+                    <td>{{aluno.bim4}}</td>
+                    <td>{{aluno.frequencia}}</td>
+                    <td>{{aluno.media}}</td>
+                    <td>{{aluno.situacaoFinal}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary" (click)="editar(aluno)"><i class="fa fa-pencil"></i></button>
+                        <button class="btn btn-sm btn-danger" (click)="excluirAluno(aluno.nome)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+            <label>Média da turma: </label>
+            <label> {{mediaDaTurma}}</label>
+
+        </table>
+
+    </div>
+        <div class="col">
+        <h2>Cadastrar</h2>
+        <form #formCadastro="ngForm" (ngSubmit)="cadastrar()">
+            <div class="form-group">
+                <label for="nome">Aluno:</label>
+                <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="novo.nome" required>
+            </div>
+            <div class="form-group">
+                <label for="bim1">1° Bimestre:</label>
+                <input type="number" class="form-control" id="bim1" name="bim1" [(ngModel)]="novo.bim1" required>
+            </div>
+            <div class="form-group">
+                <label for="bim2">2° Bimestre:</label>
+                <input type="number" class="form-control" id="bim2" name="bim2" [(ngModel)]="novo.bim2" required>
+            </div>
+            <div class="form-group">
+                <label for="bim3">3° Bimestre:</label>
+                <input type="number" class="form-control" id="bim3" name="bim3" [(ngModel)]="novo.bim3" required>
+            </div>
+            <div class="form-group">
+                <label for="bim4">4° Bimestre:</label>
+                <input type="number" class="form-control" id="bim4" name="bim4" [(ngModel)]="novo.bim4" required>
+            </div>
+            <div class="form-group">
+                <label for="bim4">Frequência:</label>
+                <input type="number" class="form-control" id="frequencia" name="frequencia" [(ngModel)]="novo.frequencia" required>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!formCadastro.valid" (click)="executar()">Salvar</button>
+            <button class="btn btn-default" [disabled]="!formCadastro.valid" (click)="limpar(aluno)">Limpar</button>
+        </form>
+        </div>
