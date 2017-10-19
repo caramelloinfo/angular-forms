@@ -49,6 +49,15 @@ export class AppComponent implements OnInit {
     heroiSelecionado(aluno: AlunoTurma): void {
         this.selecionado = aluno;
     }
+
+    listaAluno(): void{
+        for (let i=0; i< this.alunos.length; i++){
+            if (this.turmas[i] == this.alunos[i].turma){
+                this.alunos[i].turma[0] = this.turmas;
+                
+            } 
+        }
+    }
     
     mediaAluno(): void{
       let notaNull = '';

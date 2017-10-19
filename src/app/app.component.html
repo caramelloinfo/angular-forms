@@ -23,61 +23,48 @@
                         <tr *ngFor="let aluno of alunos">{{aluno.nome}}</tr>
                     </td>
                     <td>
-                        <button></button>
                         <button class="btn btn-sm btn-primary" (click)="editarTurma(turma)"><i class="fa fa-pencil"></i></button>
                         <button class="btn btn-sm btn-danger" (click)="excluirTurma(turma.nome)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                        
+                        <button type="button" class="btn btn-secondary btn-sm" (click)="editarTurma(turma)">Alunos </button>
+
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
     <div class="col">
-            <h2>Cadastrar</h2>
-            <form #formCadastroTurma="ngForm" (ngSubmit)="cadastrarTurma()">
-                <div class="form-group">
-                    <label for="numero">Número:</label>
-                    <input type="number" class="form-control" id="numero" name="numero" [(ngModel)]="nova.numero" required>
-                </div>
-                <div class="form-group">
-                    <label for="nome">Nome:</label>
-                    <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="nova.nome" required>
-                </div>
-                <div class="form-group">
-                    <label for="diaSemana">Dia da semana:</label>
-                    <input type="text" class="form-control" id="diaSemana" name="diaSemana" [(ngModel)]="nova.diaSemana" required>
-                </div>
-                <div class="form-group">
-                    <label for="turno">Turno:</label>
-                    <input type="text" class="form-control" id="turno" name="turno" [(ngModel)]="nova.turno" required>
-                </div>
-
-                <label>Alunos:</label>
-                <ul class="list-group" *ngFor="let aluno of alunos">
-                    <li class="list-group-item">{{aluno.nome}}</li>
-                </ul>
-
-                <td>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Alunos
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngFor="let aluno of alunos"> 
-                            <a class="dropdown-item" href="#" >{{aluno.nome}}</a>
-                            
-                        </div>
-                    </div>
-
-                    </td>
-                
-                <button type="submit" class="btn btn-primary" [disabled]="!formCadastroTurma.valid" (click)="cadastrarTurma()">Salvar</button>
-                <button class="btn btn-default" [disabled]="!formCadastroTurma.valid" (click)="limpar(turma)">Limpar</button>
-            
-            
-            
-            
-            </form>
+        <h2>Cadastrar</h2>
+        <form #formCadastroTurma="ngForm" (ngSubmit)="cadastrarTurma()">
+            <div class="form-group">
+                <label for="numero">Número:</label>
+                <input type="number" class="form-control" id="numero" name="numero" [(ngModel)]="nova.numero" required>
             </div>
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="nova.nome" required>
+            </div>
+            <div class="form-group">
+                <label for="diaSemana">Dia da semana:</label>
+                <input type="text" class="form-control" id="diaSemana" name="diaSemana" [(ngModel)]="nova.diaSemana" required>
+            </div>
+            <div class="form-group">
+                <label for="turno">Turno:</label>
+                <input type="text" class="form-control" id="turno" name="turno" [(ngModel)]="nova.turno" required>
+            </div>
+
+            <label>Alunos:</label>
+            <ul class="list-group" *ngFor="let aluno of alunos">
+                <li class="list-group-item">{{aluno.nome}}</li>
+            </ul>
+
+            <button type="submit" class="btn btn-primary" [disabled]="!formCadastroTurma.valid" (click)="cadastrarTurma()">Salvar</button>
+            <button class="btn btn-default" [disabled]="!formCadastroTurma.valid" (click)="limpar(turma)">Limpar</button>
+
+
+
+
+        </form>
+    </div>
 </div>
 
 <div class="row">
@@ -119,7 +106,7 @@
         </table>
 
     </div>
-        <div class="col">
+    <div class="col">
         <h2>Cadastrar</h2>
         <form #formCadastro="ngForm" (ngSubmit)="cadastrar()">
             <div class="form-group">
@@ -149,4 +136,4 @@
             <button type="submit" class="btn btn-primary" [disabled]="!formCadastro.valid" (click)="executar()">Salvar</button>
             <button class="btn btn-default" [disabled]="!formCadastro.valid" (click)="limpar(aluno)">Limpar</button>
         </form>
-        </div>
+    </div>
