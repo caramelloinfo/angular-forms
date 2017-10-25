@@ -1,151 +1,67 @@
-<h1>Gerenciar Turmas</h1>
-<br/>
-
-<div class="row">
-    <div class="col">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Número</th>
-                    <th>Nome</th>
-                    <th>Dia da semana</th>
-                    <th>Turno</th>
-                    <th>Alunos</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let turma of turmas">
-                    <td>{{turma.numero}}</td>
-                    <td>{{turma.nome}}</td>
-                    <td>{{turma.diaSemana}}</td>
-                    <td>{{turma.turno}}</td>
-                    <td>
-                        <tr *ngFor="let aluno of alunos">{{aluno.nome}}</tr>
-                    </td>
-                    <td>
-                        <button class="btn btn-sm btn-primary" (click)="editarTurma(turma)"><i class="fa fa-pencil"></i></button>
-                        <button class="btn btn-sm btn-danger" (click)="excluirTurma(turma.nome)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                        
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="col">
-            <h2>Cadastrar</h2>
-            <form #formCadastroTurma="ngForm" (ngSubmit)="cadastrarTurma()">
-                <div class="form-group">
-                    <label for="numero">Número:</label>
-                    <input type="number" class="form-control" id="numero" name="numero" [(ngModel)]="nova.numero" required>
-                </div>
-                <div class="form-group">
-                    <label for="nome">Nome:</label>
-                    <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="nova.nome" required>
-                </div>
-                <div class="form-group">
-                    <label for="diaSemana">Dia da semana:</label>
-                    <input type="text" class="form-control" id="diaSemana" name="diaSemana" [(ngModel)]="nova.diaSemana" required>
-                </div>
-                <div class="form-group">
-                    <label for="turno">Turno:</label>
-                    <input type="text" class="form-control" id="turno" name="turno" [(ngModel)]="nova.turno" required>
-                </div>
-
-                <label>Alunos:</label>
-                <ul class="list-group" *ngFor="let aluno of alunos">
-                    <li class="list-group-item">{{aluno.nome}}</li>
-                </ul>
-
-                <td>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Alunos
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngFor="let aluno of alunos"> 
-                            <a class="dropdown-item" href="#" >{{aluno.nome}}</a>
-                            
-                        </div>
-                    </div>
-
-                    </td>
-                
-                <button type="submit" class="btn btn-primary" [disabled]="!formCadastroTurma.valid" (click)="cadastrarTurma()">Salvar</button>
-                <button class="btn btn-default" [disabled]="!formCadastroTurma.valid" (click)="limpar(turma)">Limpar</button>
-            
-            
-            
-            
-            </form>
-            </div>
-</div>
-
-<div class="row">
-    <div class="col">
-        <h2>Lista de Alunos</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Aluno</th>
-                    <th>1º Bim</th>
-                    <th>2º Bim</th>
-                    <th>3º Bim</th>
-                    <th>4º Bim</th>
-                    <th>Frequência</th>
-                    <th>Media</th>
-                    <th>Situação</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let aluno of alunos">
-                    <td>{{aluno.nome}}</td>
-                    <td>{{aluno.bim1}}</td>
-                    <td>{{aluno.bim2}}</td>
-                    <td>{{aluno.bim3}}</td>
-                    <td>{{aluno.bim4}}</td>
-                    <td>{{aluno.frequencia}}</td>
-                    <td>{{aluno.media}}</td>
-                    <td>{{aluno.situacaoFinal}}</td>
-                    <td>
-                        <button class="btn btn-sm btn-primary" (click)="editar(aluno)"><i class="fa fa-pencil"></i></button>
-                        <button class="btn btn-sm btn-danger" (click)="excluirAluno(aluno.nome)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                    </td>
-                </tr>
-            </tbody>
-            <label>Média da turma: </label>
-            <label> {{mediaDaTurma}}</label>
-
-        </table>
-
-    </div>
+<div class="container">
+    <h1>Escola Municipal Cruzeiro do Sul</h1>
+    <h2>Gerenciador de Notas e Frequências dos Alunos</h2>
+    <div class="row">
         <div class="col">
-        <h2>Cadastrar</h2>
-        <form #formCadastro="ngForm" (ngSubmit)="cadastrar()">
-            <div class="form-group">
-                <label for="nome">Aluno:</label>
-                <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="novo.nome" required>
-            </div>
-            <div class="form-group">
-                <label for="bim1">1° Bimestre:</label>
-                <input type="number" class="form-control" id="bim1" name="bim1" [(ngModel)]="novo.bim1" required>
-            </div>
-            <div class="form-group">
-                <label for="bim2">2° Bimestre:</label>
-                <input type="number" class="form-control" id="bim2" name="bim2" [(ngModel)]="novo.bim2" required>
-            </div>
-            <div class="form-group">
-                <label for="bim3">3° Bimestre:</label>
-                <input type="number" class="form-control" id="bim3" name="bim3" [(ngModel)]="novo.bim3" required>
-            </div>
-            <div class="form-group">
-                <label for="bim4">4° Bimestre:</label>
-                <input type="number" class="form-control" id="bim4" name="bim4" [(ngModel)]="novo.bim4" required>
-            </div>
-            <div class="form-group">
-                <label for="bim4">Frequência:</label>
-                <input type="number" class="form-control" id="frequencia" name="frequencia" [(ngModel)]="novo.frequencia" required>
-            </div>
-            <button type="submit" class="btn btn-primary" [disabled]="!formCadastro.valid" (click)="executar()">Salvar</button>
-            <button class="btn btn-default" [disabled]="!formCadastro.valid" (click)="limpar(aluno)">Limpar</button>
-        </form>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Turma</th>
+                        <th>Aluno</th>
+                        <th>Frequência</th>
+                        <th>Média</th>
+                        <th>Situação</th>
+                        <th>Registrar notas e freq.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let aluno of alunos" [class.table-danger]="aluno.situacao() == 'REPROVADO' || aluno.situacao() == 'REPROVADO POR FALTA'"
+                        [class.table-success]="aluno.situacao() == 'APROVADO'">
+                        <td>{{aluno.turma}}</td>
+                        <td>{{aluno.nome}}</td>
+                        <td>{{aluno.frequencia}}</td>
+                        <td>{{aluno.media()}}</td>
+                        <td>{{aluno.situacao() || 'N/I'}}</td>
+                        <td>
+                            <button class="btn btn-primary" (click)="registrar(aluno)">Registrar</button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">Média da Turma</td>
+                        <td colspan="2">{{media_turma || 'N/I'}}</td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
+        <div class="col">
+            <h2>Registrar notas e frequência</h2>
+            <form #registro="ngForm" (submit)="salvar()">
+                <div class="form-group">
+                    <label>Nota 1</label>
+                    <input type="number" class="form-control" name="nota1" [(ngModel)]="aluno_atual.nota1">
+                </div>
+                <div class="form-group">
+                    <label>Nota 2</label>
+                    <input type="number" class="form-control" name="nota2" [(ngModel)]="aluno_atual.nota2">
+                </div>
+                <div class="form-group">
+                    <label>Nota 3</label>
+                    <input type="number" class="form-control" name="nota3" [(ngModel)]="aluno_atual.nota3">
+                </div>
+                <div class="form-group">
+                    <label>Nota 4</label>
+                    <input type="number" class="form-control" name="nota4" [(ngModel)]="aluno_atual.nota4">
+                </div>
+                <div class="form-group">
+                    <label>Frequência</label>
+                    <input type="number" class="form-control" name="frequencia" [(ngModel)]="aluno_atual.frequencia">
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="!registro.valid">Salvar</button>
+                <button type="button" class="btn btn-secondary" (click)="limpar()">Limpar</button>
+            </form>
+        </div>
+        <br>
+
+    </div>
