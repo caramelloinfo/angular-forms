@@ -1,7 +1,8 @@
 <div class="container">
     <h1>Escola Municipal Cruzeiro do Sul</h1>
-
-
+    <h2>Turma 105</h2>
+    
+    <br>
     <div >
         <h1 align=center>Turmas</h1>
         <!--Tabela de Turmas-->
@@ -23,7 +24,7 @@
                             <td>{{turma.id}}</td>
                             <td>{{turma.turma}}</td>
                             <td>{{turma.alunos.length}}</td>
-                            <td>{{turma.media}}</td>
+                            <td>{{turma.calcularMediaDaTurma}}</td>
                             <td>
                                 <button class="btn btn-sm btn-primary" (click)="visualizarT(turma)">Visualizar</button>
                                 <button class="btn btn-sm btn-warning" (click)="editarT(turma)">Editar</button>
@@ -54,74 +55,102 @@
         </div>
     </div>
 
+    <br>
 
+    <h1 align=center>Alunos</h1>
+    <br>
 
-
-
-
-
-    <h2>Gerenciador de Notas e Frequências dos Alunos</h2>
+    <!-- Tabela de Alunos -->
     <div class="row">
         <div class="col">
+            <h2>Turma: {{selectT.turma}}</h2>
+            <h2>Lista de Alunos</h2>
             <table class="table">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Turma</th>
-                        <th>Aluno</th>
+                        <th>Nome</th>
                         <th>Frequência</th>
+                        <th>N1</th>
+                        <th>N2</th>
+                        <th>N3</th>
+                        <th>N4</th>
                         <th>Média</th>
                         <th>Situação</th>
-                        <th>Registrar notas e freq.</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr *ngFor="let aluno of alunos" [class.table-danger]="aluno.situacao() == 'REPROVADO' || aluno.situacao() == 'REPROVADO POR FALTA'"
-                        [class.table-success]="aluno.situacao() == 'APROVADO'">
-                        <td>{{aluno.turma}}</td>
-                        <td>{{aluno.nome}}</td>
-                        <td>{{aluno.frequencia}}</td>
-                        <td>{{aluno.media()}}</td>
-                        <td>{{aluno.situacao() || 'N/I'}}</td>
-                        <td>
-                            <button class="btn btn-primary" (click)="registrar(aluno)">Registrar</button>
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="3">Média da Turma</td>
-                        <td colspan="2">{{media_turma || 'N/I'}}</td>
-                    </tr>
-                </tfoot>
+                <ng-container *ngIf="selectT.turma > 0">
+                    <tbody>
+                        <tr *ngFor="let aluno of selectT.alunos"    [class.nullClass]="aluno.situacao()== 'N/I'" 
+                                                            [class.greenClass]="aluno.situacao()=='Aprovado'" [class.redClass]="aluno.situacao()=='Reprovado' || aluno.situacao()=='Reprovado por falta'">
+                            <ng-container *ngIf="aluno.turma == selectT.turma">
+                                <td>{{aluno.id}}</td>
+                                <td>{{aluno.turma}}</td>
+                                <td>{{aluno.nome}}</td>
+                                <td align=center>{{aluno.frequencia}}</td>
+                                <td align=center>{{aluno.nota1}}</td>
+                                <td align=center>{{aluno.nota2}}</td>
+                                <td align=center>{{aluno.nota3}}</td>
+                                <td align=center>{{aluno.nnota4}}</td>
+                                <td align=center>{{aluno.media}}</td>
+                                <td align=center>{{aluno.situacao()}}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning" (click)="editar(aluno)">Editar</button>
+                                    <button class="btn btn-sm btn-danger" (click)="excluirAluno(aluno)">Exluir</button>
+                                </td>
+                            </ng-container>
+                        </tr>
+                    
+                    </tbody>
+                </ng-container  >
             </table>
+              
+              
+
         </div>
         <div class="col">
-            <h2>Registrar notas e frequência</h2>
-            <form #registro="ngForm" (submit)="salvar()">
-                <div class="form-group">
-                    <label>Nota 1</label>
-                    <input type="number" class="form-control" name="nota1" [(ngModel)]="aluno_atual.nota1">
+            <h2>Registrar Alunos</h2>
+            <form #formCadastro="ngForm" >
+                <div class="col">
+                
+                    <div class="form-group-sm">
+                        <label for="nome">Nome: </label>
+                        <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="novo.nome" required>
+                    </div>
+                    <br>
+                    <div class="form-group-sm">
+                            <label for="nome">Frequência (Horas): </label>
+                            <input type="text" class="form-control" id="frequencia" name="frequencia" [(ngModel)]="novo.frequencia">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Nota 2</label>
-                    <input type="number" class="form-control" name="nota2" [(ngModel)]="aluno_atual.nota2">
+                <div class="col">
+                    <div class="form-group">
+                        <br>
+                        <label for="nome">Notas:</label>
+                        <div class="row">
+                            <div class="col">
+                                    N1 <input type="text" class="form-control" id="nota1" name="nota1" width="10" [(ngModel)]="novo.nota1">
+                            </div>
+                            <div class="col">
+                                    N2 <input type="text" class="form-control" id="nota2" name="nota2" [(ngModel)]="novo.nota2">
+                            </div>
+                            <div class="col">
+                                    N3 <input type="text" class="form-control" id="nota3" name="nota3" [(ngModel)]="novo.nota3">
+                            </div>
+                            <div class="col">
+                                    N4 <input type="text" class="form-control" id="nota4" name="n4" [(ngModel)]="novo.nota4">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Nota 3</label>
-                    <input type="number" class="form-control" name="nota3" [(ngModel)]="aluno_atual.nota3">
-                </div>
-                <div class="form-group">
-                    <label>Nota 4</label>
-                    <input type="number" class="form-control" name="nota4" [(ngModel)]="aluno_atual.nota4">
-                </div>
-                <div class="form-group">
-                    <label>Frequência</label>
-                    <input type="number" class="form-control" name="frequencia" [(ngModel)]="aluno_atual.frequencia">
-                </div>
-                <button type="submit" class="btn btn-primary" [disabled]="!registro.valid">Salvar</button>
-                <button type="button" class="btn btn-secondary" (click)="limpar()">Limpar</button>
+                <button type="submit" class="btn btn-primary" (click)="salvar()" [disabled]="!formCadastro.valid || !editando">Salvar</button>
+                <button type="submit" class="btn btn-success" (click)="cadastrar()" [disabled]="!formCadastro.valid || editando">Cadastrar</button>
+                <button type="submit" class="btn btn-warning" (click)="limpar()" >Limpar</button>
             </form>
+
         </div>
         <br>
 
     </div>
+</div>

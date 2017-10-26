@@ -33,7 +33,7 @@ export class Aluno {
             acumulador += this.nota4;
         }
 
-        return acumulador / denominador;
+        return +''+acumulador / denominador;
     }
 
     public situacao(): string {
