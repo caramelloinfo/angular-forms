@@ -33,7 +33,7 @@ export class Aluno {
             acumulador += this.nota4;
         }
 
-        return +''+acumulador / denominador;
+        return acumulador / denominador;
     }
 
     public situacao(): string {
@@ -48,17 +48,5 @@ export class Aluno {
         } else {
             return 'REPROVADO';
         }
-    }
-
-
-    atualiza(aluno:Aluno){
-        //Atualiza os dados alterados em edição.
-        this.nome = aluno.nome;
-        this.frequencia = aluno.frequencia;
-        this.nota1 = aluno.nota1;
-        this.nota2 = aluno.nota2;
-        this.nota3 = aluno.nota3;
-        this.nota4 = aluno.nota4;
-        this.media = aluno.media;
     }
 }
